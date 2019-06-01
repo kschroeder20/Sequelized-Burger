@@ -1,0 +1,48 @@
+<div class="container" id="content">
+    <div class="row d-flex justify-content-center">
+        <div id="main-content" class="offset-md-1 col-md-10 col-sm-12">
+            <div class="col-12 text-center">
+                <img src="/assets/img/cartoon-hamburger-wallpapers.jpg">
+                <h1 class="display-4" id="title">Burgers</h1>
+            </div>
+            <hr>
+            <div class="row d-flex justify-content-center">
+                <div id="main-content" class="col-md-2 col-md-8">
+                    <form class="new-burger">
+                        <div class="form-group">
+                            <label for="burgerSearch">Add Your Favorite Burger</label>
+                            <input type="text" name="burger" class="form-control" id="burger-input"
+                                placeholder="Baconator">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row" id = "devoure-row">
+                <div class="col">
+                    <h5 class="text-center">Would You Like to Devoure?</h5>
+                    <ul class="list-group">
+                        {{#each burgers}}
+                            {{#unless devoured}}
+                                <li class="list-group-item">{{id}}. {{burger_name}}</li>
+                                <button type="button" class="btn btn-secondary devoured-btn"
+                                    data-id="{{id}}">Devoure!</button>
+                                <br>
+                            {{/unless}}
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col">
+                    <h5 class="text-center">Previously Enjoyed:</h5>
+                    <ul class="list-group">
+                        {{#each burgers}}
+                            {{#if devoured}}
+                                <li class="list-group-item">{{id}}. {{burger_name}}</li>
+                            {{/if}}
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
