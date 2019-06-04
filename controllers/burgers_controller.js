@@ -51,41 +51,63 @@
 
 var db = require("../models");
 
-module.exports = function(app) {
-  app.get("/", function(req, res) {
-      db.Burger.findAll({}).then(function (result) {
-          res.render("index", { burger: result });
+module.exports = function (app) {
+    app.get("/", function (req, res) {
+        db.Customer.findAll({
+            // passes in all associated models
+            include: [db.Burger]
+        }).then(function (customers) {
+           
+            //console.log(result);
+            res.render("index", {
+                customers: customers
+            });
+        });
     });
-  });
-//POST route to create/add a burger.
-  app.post("/api/burgers", function(req, res) {
-    var burger = req.body;
-    db.Burger.create({
-      burger_name: burger.burger_name
-    }).then(function (result) {
-      res.json({
-        id: result.insertId
-      });
-    });
-  });
 
-  app.put("/api/burgers/:id", function(req, res) {
-    var newBurger = {
-      devoured: true
-    };
-
-    db.Burger.update(newBurger, {
-      where: {
-        id: req.params.id
-      }
-    }).then(function(result) {
-      console.log(`Updated ${req.body.burger_name}`);
-      if (result.changedRows == 0) {
-        // If no rows were changed, then the ID must not exist, so 404
-        return res.status(404).end();
-      } else {
-        res.status(200).end();
-      }
+    //POST route to create/add a customer.
+    app.post("/api/customer", function (req, res) {
+        db.Customer.create(req.body).then(() => res.redirect('/'));
+        // var customer = req.body;
+        // db.Customer.create({
+        //     name: customer.name
+        // }).then(function (result) {
+        //     res.json({
+        //         id: result.insertId
+        //     });
+        // });
     });
-  });
+
+    //POST route to create/add a burger.
+    app.post("/api/burger/:id", function (req, res) {
+        console.log("HERE");
+        console.log(req.params);
+        db.Burger.create({
+            ...req.body,
+            devoured: true,
+            CustomerId: req.params.id
+        }).then(function (result) {
+            res.redirect('/');
+        });
+    });
+
+    // app.put("/api/burgers/:id", function (req, res) {
+    //     var newBurger = {
+    //         devoured: true
+    //     };
+
+    //     db.Burger.update(newBurger, {
+    //         where: {
+    //             id: req.params.id
+    //         }
+    //     }).then(function (result) {
+    //         console.log(`Updated ${req.body.burger_name}`);
+    //         if (result.changedRows == 0) {
+    //             // If no rows were changed, then the ID must not exist, so 404
+    //             return res.status(404).end();
+    //         } else {
+    //             res.status(200).end();
+    //         }
+    //     });
+    // });
 };

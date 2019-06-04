@@ -8,39 +8,46 @@
             <hr>
             <div class="row d-flex justify-content-center">
                 <div id="main-content" class="col-md-2 col-md-8">
-                    <form class="new-burger">
+                    <form class="new-burger" action='api/customer' method='post'>
                         <div class="form-group">
-                            <label for="burgerSearch">Add Your Favorite Burger</label>
-                            <input type="text" name="burger" class="form-control" id="burger-input"
-                                placeholder="Baconator">
+                            <label for="customer">Customer Name</label>
+                            <input type="text" name="name" class="form-control" id="customer-input" placeholder="Name">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
-            <div class="row" id = "devoure-row">
+            <div class="row" id="devoure-row">
                 <div class="col">
-                    <h5 class="text-center">Would You Like to Devoure?</h5>
+                    <h5 class="text-center">Enter Favorite Burger and Devoure!</h5>
                     <ul class="list-group">
-                        {{#each burger}}
-                            {{#unless devoured}}
-                                <li class="list-group-item">{{id}}. {{burger_name}}</li>
-                                <button type="button" class="btn btn-secondary devoured-btn"
-                                    data-id="{{id}}">Devoure!</button>
-                                <br>
-                            {{/unless}}
+                        {{#each customers}}
+                            <li class="list-group-item">{{name}}</li>
+
+                            <form action='/api/burger/{{id}}' method='post'>
+
+                                <input type='text' name='burger_name' class="form-control"
+                                    placeholder="Enter Burger Name">
+
+                                <button type="submit" class="btn btn-secondary">Devoure!</button>
+                            </form>
+                            <br><br>
                         {{/each}}
                     </ul>
                 </div>
                 <div class="col">
-                    <h5 class="text-center">Previously Enjoyed:</h5>
+                    {{#each customers}}
+                        <h5 class="text-center">{{name}} Has Previously Enjoyed:</h5>
                     <ul class="list-group">
-                        {{#each burger}}
-                            {{#if devoured}}
-                                <li class="list-group-item">{{id}}. {{burger_name}}</li>
-                            {{/if}}
+                            {{#each Burgers}}
+                                {{#if devoured}}
+                                    <li class="list-group-item">{{burger_name}}</li>
+                                {{/if}}
+                            {{/each}}
+                            </ul>
+                            <br><br>
                         {{/each}}
-                    </ul>
+                    
                 </div>
             </div>
         </div>
