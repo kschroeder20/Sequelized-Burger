@@ -71,7 +71,9 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // ROUTES
-require("./controllers/burgers_controller")(app);
+var routes = require("./controllers/burgers_controller");
+
+app.use(routes);
 
 // Syncing our sequelize models and then starting our Express app
 db.sequelize.sync({force: true}).then(function() {
