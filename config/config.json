@@ -14,11 +14,11 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "wchgimoydqbc6cui",
-    "password": "m3f6yy16jkg32vun",
-    "database": "si9y0tuaqt30eif5",
+    "username": "njo3y1u3eou52o4b",
+    "password": "l1tw7zsrg20e6n1c",
+    "database": "bklyqus5kq9h2lve",
     "use_env_variable": JAWSDB_URL,
-    "host": "arfo8ynm6olw6vpn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "host": "l6slz5o3eduzatkw.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
